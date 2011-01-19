@@ -1,0 +1,47 @@
+﻿<html>
+<head>
+    <script type="text/javascript" src="akihabara/gbox.js"></script>
+    <script type="text/javascript" src="akihabara/iphopad.js"></script>
+    <script type="text/javascript" src="akihabara/trigo.js"></script>
+    <script type="text/javascript" src="akihabara/toys.js"></script>
+    <script type="text/javascript" src="akihabara/help.js"></script>
+    <script type="text/javascript" src="akihabara/tool.js"></script>
+    <script type="text/javascript" src="akihabara/gamecycle.js"></script>
+    <style>
+        BODY
+        {
+            -webkit-user-select: none;
+            margin: 0px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="favicon.png" type="image/png" />
+    <link rel="Stylesheet" href="game.css" type="text/css" />
+    <title>Aki</title>
+</head>
+<body style="padding: 0; margin: 0;">
+    <div id="debugNotes">
+        <ul>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        window.addEventListener("load", function (event) {
+            setTimeout(hideAddress, 100);
+        }, false);
+
+        function hideAddress() {
+            window.scrollTo(0, 1);
+        }
+
+        
+    </script>
+    <script type="text/javascript" src="utility/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="utility/a_star.js"></script>
+	<script type="text/javascript" src="utility/mouse.js"></script>
+	<script type="text/javascript" src="utility/toys_extension.js"></script>
+	<script type="text/javascript" src="scripts/player.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+</body>
+</html>

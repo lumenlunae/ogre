@@ -1,0 +1,22 @@
+﻿body 
+{
+    font-family: Arial;
+}
+#debugNotes 
+{
+    float: left; 
+    position: absolute;
+    width: 270px;
+    text-align: left;
+}
+
+#debugNotes ul 
+{
+    margin: 0;
+    padding: 0;
+}
+#debugNotes li 
+{
+    color: #ffffff;
+    font-size: 12px;
+}
