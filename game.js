@@ -32,7 +32,7 @@ function loadResources() {
 }
 
 function main() {
-    gbox.setGroups(['background', 'foreground', 'player', 'moving_objects', 'objects', 'projectiles', 'sparks', 'above', 'mouse', 'game']);
+    gbox.setGroups(['background', 'foreground', 'player', 'movingObjects', 'objects', 'projectiles', 'sparks', 'above', 'mouse', 'game']);
     gbox.setRenderOrder(["background", "foreground", gbox.ZINDEX_LAYER, "sparks", "above", "mouse", "game"]);
 
     maingame = gamecycle.createMaingame('game', 'game');
@@ -75,7 +75,7 @@ function main() {
     maingame.changeLevel = function (level) {
         gbox.trashGroup("background");
         gbox.trashGroup("foreground");
-        gbox.trashGroup("moving_objects");
+        gbox.trashGroup("movingObjects");
         gbox.trashGroup("objects");
         gbox.trashGroup("projectiles");
 
@@ -103,7 +103,8 @@ function main() {
 				tilemaps.map3.tilesetNormal = tilemaps.map3.tileset;
 				
 				finalizeTilemaps();
-
+				
+				addPlayer(0,0);
                 tilemaps.map.addObjects();
 				
 				hidePlayerMenu();
@@ -112,25 +113,19 @@ function main() {
     };
     maingame.initializeGame = function () {
 		
-        //console.log("init");
-        //addPlayer(12, 5);
-        //addWizard(5, 6);
-        //addBlock(10, 6);
-        //addMap(tilemaps.map1, 'background', 'background_id');
-        //addMap2(tilemaps.map2, 'foreground', 'background_id2', 'map_canvas2');
-        //addMap2(tilemaps.map3, 'above', 'background_id3', 'map_canvas3');
-
     };
 
     gbox.go();
 }
 
-function addWizard(x, y) {
+function addUnit(data) {
     var td = gbox.getTiles(tilemaps.map1.tileset);
+	var id = data.id ? data.id : null;
     gbox.addObject({
-        id: 'test',
-        group: 'moving_objects',
-        tileset: 'player_tiles',
+		id: id,
+        group: 'movingObjects',
+        tileset: 'unitTiles',
+		frame: data.frame,
         zindex: 0,
         movingstill: true,
         framespeed: 5,
@@ -147,15 +142,14 @@ function addWizard(x, y) {
         initialize: function () {
             toys.topview.initialize(this, {});
 
-            this.x = x * td.tilew;
-            this.y = y * td.tileh;
+            this.x = data.x * td.tilew;
+            this.y = data.y * td.tileh;
 			var tileset = gbox.getTiles(this.tileset); 
 			this.colh = tileset.tileh;
 			this.colw = tileset.tilew;
 			this.coly = tileset.tileh - this.colh;
 			this.colhh = Math.floor(this.colh/2);
 			this.colhw = Math.floor(this.colw/2);
-            this.frame = 0;
 
         },
         first: function () {
@@ -284,7 +278,7 @@ function createFireball(obj) {
     }
     var fireball = toys.topview.e.fireBullet("projectiles", null, {
         fullhit: false,
-        collidegroup: "moving_objects",
+        collidegroup: "movingObjects",
         map: tilemaps.map2,
         mapindex: "map",
         defaulttile: 0,
@@ -462,10 +456,10 @@ function playerCollisionCheck(obj) {
 
     // Handles "touching" objects.
     // Executed before spritewall pushes the player to an adjusted coordinate
-    //var collision = toys.topview.e.callWhenColliding(obj, 'moving_objects', 'doPlayerCollide');
+    //var collision = toys.topview.e.callWhenColliding(obj, 'movingObjects', 'doPlayerCollide');
     //var collision2 = toys.topview.e.callWhenColliding(obj, 'objects', 'doPlayerCollide');
 
-    toys.topview.e.objectwallCollision(obj, { group: "moving_objects", objcall: "doPlayerCollide" });
+    toys.topview.e.objectwallCollision(obj, { group: "movingObjects", objcall: "doPlayerCollide" });
     toys.topview.e.objectwallCollision(obj, { group: "objects", objcall: "doPlayerCollide" }); // Doors and tresaure chests are sprites that acts like a wall.
     toys.topview.adjustZindex(obj);
 }
@@ -479,7 +473,7 @@ function npcCollisionCheck(obj, data) {
     if (data.objcall == null) {
         data.objcall = "doNpcCollide";
     }
-    toys.topview.e.objectwallCollision(obj, { group: "moving_objects", objcall: data.objcall, selfcall: data.selfcall });
+    toys.topview.e.objectwallCollision(obj, { group: "movingObjects", objcall: data.objcall, selfcall: data.selfcall });
     toys.topview.e.objectwallCollision(obj, { group: "objects", objcall: data.objcall, selfcall: data.selfcall });
     toys.topview.adjustZindex(obj);
 }
@@ -591,8 +585,8 @@ function zoomOut() {
 	tilemaps.map3.tileset = tilemaps.map3.tilesetSmall;
 	
 	finalizeTilemaps();
-	for (var id in gbox._objects["moving_objects"]) {
-		var obj = gbox.getObject("moving_objects", id);
+	for (var id in gbox._objects["movingObjects"]) {
+		var obj = gbox.getObject("movingObjects", id);
 		obj.x = obj.x / 2;
 		obj.y = obj.y / 2;
 	}
@@ -607,8 +601,8 @@ function zoomIn() {
 	
 	finalizeTilemaps();
 	
-	for (var id in gbox._objects["moving_objects"]) {
-		var obj = gbox.getObject("moving_objects", id);
+	for (var id in gbox._objects["movingObjects"]) {
+		var obj = gbox.getObject("movingObjects", id);
 		obj.x = obj.x * 2;
 		obj.y = obj.y * 2;
 	}

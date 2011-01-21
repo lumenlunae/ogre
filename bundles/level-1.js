@@ -8,7 +8,7 @@
     
     addTiles: [
 		{id: 'cursor', image: 'map_objects',  tileh: 16, tilew: 16, tilerow: 1, gapx: 0, gapy: 0},
-        {id: 'player_tiles', image: 'char1',  tileh: 16, tilew: 16, tilerow: 1, gapx: 0, gapy: 0},
+        {id: 'unitTiles', image: 'char1',  tileh: 16, tilew: 16, tilerow: 16, gapx: 0, gapy: 0},
         {id: 'map_pieces', image: 'map_spritesheet', tileh: 16, tilew: 16, tilerow: 10, gapx: 0, gapy: 0},
 		{id: 'map_pieces_small', image: 'map_spritesheet_small', tileh: 8, tilew: 8, tilerow: 10, gapx: 0, gapy: 0},
 		{id: 'menu', image: 'map_objects', tileh: 32, tilew: 32, tilerow: 4, gapx: 0, gapy: 32},
@@ -21,8 +21,10 @@
             property: "map",
             value: {
                 addObjects: function () {
-					addPlayer(0,0);
-                    addWizard(5, 6);
+					
+                    addUnit({x: 5, y: 6, frame: 0});
+					addUnit({x: 5, y: 9, frame: 14});
+					addUnit({x: 9, y: 9, frame: 5});
                     addMap(tilemaps.map1, 'background', 'background_id');
                     addMap2(tilemaps.map2, 'foreground', 'background_id2', 'map_canvas2');
                     addMap2(tilemaps.map3, 'above', 'background_id3', 'map_canvas3');

@@ -89,7 +89,7 @@ function addMouseControl() {
 			mouse.dragObject = null;
 			mouse.isClicked = true;
 			
-			if (!toys.topview.callInColliding(mouse, {x: mouse.x + mouse.hw, y: mouse.y + mouse.hh, group: "moving_objects", call: "touchAction" })) {
+			if (!toys.topview.callInColliding(mouse, {x: mouse.x + mouse.hw, y: mouse.y + mouse.hh, group: "movingObjects", call: "touchAction" })) {
 				var cam = gbox.getCamera();
 				console.log(mouse.x, mouse.y, cam.x, cam.y);
 				toys.topview.callInColliding(mouse, {x: mouse.x + mouse.hw, y: mouse.y + mouse.hh, group: "mouse", call: "touchAction" });
